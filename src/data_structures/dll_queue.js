@@ -1,14 +1,12 @@
 import DoublyLinkedList from './doubly_linked_list';
 
-/**
- * Implementation of the Queue interface using a doubly-linked list
- */
 class DLLQueue {
   /**
    * Create an empty queue
    */
   constructor() {
     this.storage = new DoublyLinkedList();
+ 
   }
 
   /**
@@ -18,7 +16,7 @@ class DLLQueue {
    * @returns {ticket} Cancellation ticket
    */
   enqueue(element) {
-
+    return this.storage.insertTail(element);
   }
 
   /**
