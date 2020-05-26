@@ -32,52 +32,56 @@ class DoublyLinkedList {
 
   insertHead(element) {
     const newHead = new this.Node({ 
-      element: element, prev: this._sentinel, next: this._head 
-    })
-    this._head.prev = newHead;
+      element: element, next: this._head(), prev: this._sentinel 
+    });
+    this._head().prev = newHead;
     this._sentinel.next = newHead;
     if (this._sentinel.prev === this._sentinel) {
       this._sentinel.prev = newHead;
     }
+    return newHead;
   }
 
   insertTail(element) {
     const newTail = new this.Node({
-      element: element, prev: this._tail, next: this._sentinel
+      element: element, prev: this._tail(), next: this._sentinel
     })
-    this._tail.next = newTail;
+    this._tail().next = newTail;
     this._sentinel.prev = newTail;
     if (this._sentinel.next === this._sentinel) {
       this._sentinel.next = newTail;
     }
+    return newTail;
   }
 
   removeHead() {
-    return this._head.remove();
+    return this._head().remove();
   }
 
   removeTail() {
-    return this._tail.remove();
+    return this._tail().remove();
   }
 
   remove(node) {
-    return node.remove();
+    if (node.remove){
+      return node.remove();
+    }
   }
 
   forEach(callback) {
-    let currentNode = this._head;
+    let currentNode = this._head();
     while (currentNode._active) {
-      callback(currentNode.element)
-      currentNode = currentNode.next
+      callback(currentNode.element);
+      currentNode = currentNode.next;
     }
   }
 
   count() {
-    let currentNode = this._head;
+    let currentNode = this._head();
     let elementCounter = 0;
     while (currentNode._active) {
       elementCounter += 1;
-      currentNode = currentNode.next
+      currentNode = currentNode.next;
     }
     return elementCounter;
   }
